@@ -17,7 +17,7 @@ namespace ECommerce.Controllers
         // GET: Cities
         public ActionResult Index()
         {
-            var cities = db.Cities.Include(c => c.Department);
+            var cities = db.Cities.Include(c => c.Department).OrderBy(d => d.Department.Name).ThenBy(c => c.Name);
             return View(cities.ToList());
         }
 

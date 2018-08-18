@@ -17,7 +17,8 @@ namespace ECommerce.Controllers
         // GET: Departments
         public ActionResult Index()
         {
-            return View(db.Departments.ToList());
+            var departmens = db.Departments.OrderBy(d => d.Name);
+            return View(departmens.ToList());
         }
 
         // GET: Departments/Details/5
