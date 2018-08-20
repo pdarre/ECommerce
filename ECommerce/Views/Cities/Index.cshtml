@@ -8,32 +8,34 @@
 <p>
     @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
 </p>
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Department.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
+<div class="container">
+    <table class="table table-hover">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                    <a class="btn btn-secondary" href="~/Cities/Edit/@item.CityId" role="button">Edit</a>
-                    <a class="btn btn-secondary" href="~/Cities/Details/@item.CityId" role="button">Details</a>
-                    <a class="btn btn-secondary" href="~/Cities/Delete/@item.CityId" role="button">Delete</a>
-                </div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Department.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <a class="btn btn-secondary" href="~/Cities/Edit/@item.CityId" role="button">Edit</a>
+                        <a class="btn btn-secondary" href="~/Cities/Details/@item.CityId" role="button">Details</a>
+                        <a class="btn btn-secondary" href="~/Cities/Delete/@item.CityId" role="button">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

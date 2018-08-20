@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
@@ -40,35 +40,18 @@
             </ul>
         </div>
     </nav>
-    @*<nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/Home/">E-Commerce</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/Home/Index">Home</a></li>
-                        <li><a href="/Home/About">About</a></li>
-                        <li><a href="/Home/Contact">Contact</a></li>
-                        <li><a href="/Departments/Index">Departments</a></li>
-                        <li><a href="/Cities/Index">Cities</a></li>
-
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.Partial("_LoginPartial")</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
 
     <div class="container body-content">
+        <style>
+            body {
+                margin-top: 20px;
+            }
+        </style>
         @RenderBody()
         <hr />
+    </div>
+
+    <div class="container">
         <footer class="footer bg-light">
             <div class="container">
                 <span class="text-muted">@DateTime.Now.Year</span>
