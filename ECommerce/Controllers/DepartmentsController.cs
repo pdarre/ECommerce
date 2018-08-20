@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using ECommerce.Models;
-
-namespace ECommerce.Controllers
+﻿namespace ECommerce.Controllers
 {
+    using ECommerce.Models;
+    using System;
+    using System.Data;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
     public class DepartmentsController : Controller
     {
         private ECommerceContext db = new ECommerceContext();
@@ -33,6 +31,7 @@ namespace ECommerce.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.cities = db.Cities.Where(d => d.DepartmentId == id);
             return View(department);
         }
 
@@ -52,10 +51,25 @@ namespace ECommerce.Controllers
             if (ModelState.IsValid)
             {
                 db.Departments.Add(department);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null &&
+                        ex.InnerException.InnerException != null &&
+                        ex.InnerException.InnerException.Message.Contains("_Index"))
+                    {
+                        ModelState.AddModelError(String.Empty, "Duplicate records not allowed");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(String.Empty, ex.Message);
+                    }
+                }
             }
-
             return View(department);
         }
 
@@ -112,8 +126,25 @@ namespace ECommerce.Controllers
         {
             Department department = db.Departments.Find(id);
             db.Departments.Remove(department);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                if(ex.InnerException!=null &&
+                    ex.InnerException.InnerException!=null && 
+                    ex.InnerException.InnerException.Message.Contains("REFERENCE"))
+                {
+                    ModelState.AddModelError(String.Empty, "The record can'tbe deleted, check for related records");
+                }
+                else
+                {
+                    ModelState.AddModelError(String.Empty, ex.Message);
+                }
+            }
+            return View(department);
         }
 
         protected override void Dispose(bool disposing)
