@@ -38,8 +38,11 @@
         [Range(1, double.MaxValue, ErrorMessage = "You must select a {0}")]
         public int CityId { get; set; }
 
-        public virtual Department Department { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase LogoFile { get; set; }
 
+        public virtual Department Department { get; set; }
+        
         public virtual City City { get; set; }
     }
 }
