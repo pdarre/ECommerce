@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ECommerce.Classes;
+using ECommerce.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ECommerce.Classes;
-using ECommerce.Models;
 
 namespace ECommerce.Controllers
 {
@@ -54,28 +51,24 @@ namespace ECommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pic = string.Empty;
-                var folder = "~/Content/Logos";
+                db.Companies.Add(company);
+                db.SaveChanges();
 
                 if (company.LogoFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(company.LogoFile, folder);
-                    pic = string.Format("{0}/{1}", folder, pic);
+                    var folder = "~/Content/Logos";
+                    var name = string.Format("{0}.jpg", company.CompanyId);
+                    var response = FilesHelper.UploadPhoto(company.LogoFile, folder, name);
+                    if (response)
+                    {
+                        var pic = string.Format("{0}/{1}", folder, name);
+                        company.Logo = pic;
+                        db.Entry(company).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
                 }
-                company.Logo = pic;
-                db.Companies.Add(company);
-                try
-                {
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
-
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name", company.CityId);
             ViewBag.DepartmentId = new SelectList(CombosHelper.GetDepartments(), "DepartmentId", "Name", company.DepartmentId);
             return View(company);
@@ -93,8 +86,8 @@ namespace ECommerce.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", company.CityId);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", company.DepartmentId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name", company.CityId);
+            ViewBag.DepartmentId = new SelectList(CombosHelper.GetDepartments(), "DepartmentId", "Name", company.DepartmentId);
             return View(company);
         }
 
@@ -103,16 +96,26 @@ namespace ECommerce.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CompanyId,Name,Phone,Address,Logo,DepartmentId,CityId")] Company company)
+        public ActionResult Edit(Company company)
         {
             if (ModelState.IsValid)
             {
+                if (company.LogoFile != null)
+                {
+                    var pic = string.Empty;
+                    var folder = "~/Content/Logos";
+                    var name = string.Format("{0}.jpg", company.CompanyId);
+                    var response = FilesHelper.UploadPhoto(company.LogoFile, folder, name);
+                    if (response)
+                    {
+                        pic = string.Format("{0}/{1}", folder, name);
+                        company.Logo = pic;
+                    }
+                }
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", company.CityId);
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", company.DepartmentId);
             return View(company);
         }
 
