@@ -9,53 +9,34 @@
 <p>
     @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.City.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Company.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Department.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Photo)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-hover">
+    <thead class="thead-light shadow-sm">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.City.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -63,20 +44,27 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @if (!string.IsNullOrEmpty(item.Photo))
+                {
+                    <img src="@Url.Content(item.Photo)" class="rounded-circle" alt="Image" style="width:75px;height:100px;max-width: 100%; height: auto;" />
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.Company.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Photo)
+                @Html.DisplayFor(modelItem => item.City.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <a class="btn btn-secondary" href="~/Users/Edit/@item.UserId" role="button">Edit</a>
+                    <a class="btn btn-secondary" href="~/Users/Details/@item.UserId" role="button">Details</a>
+                    <a class="btn btn-secondary" href="~/Users/Delete/@item.UserId" role="button">Delete</a>
+                </div>
             </td>
         </tr>
     }
-
 </table>

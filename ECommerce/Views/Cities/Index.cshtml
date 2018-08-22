@@ -10,15 +10,17 @@
 </p>
 <div class="container">
     <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Department.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
+        <thead class="thead-light shadow-sm">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
         @foreach (var item in Model)
         {
             <tr>
