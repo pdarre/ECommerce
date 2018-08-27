@@ -1,13 +1,13 @@
-﻿using ECommerce.Classes;
-using ECommerce.Models;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-
-namespace ECommerce.Controllers
+﻿namespace ECommerce.Controllers
 {
+    using ECommerce.Classes;
+    using ECommerce.Models;
+    using System.Data;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
     public class CompaniesController : Controller
     {
         private ECommerceContext db = new ECommerceContext();

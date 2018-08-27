@@ -4,87 +4,133 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<style>
+    body {
+        margin-top: 40px;
+    }
+</style>
+<h3>User Details</h3>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.City.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Company.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Department.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Department.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-    </dl>
+<div class="container">
+    <div class="row">
+        <div class="col col-xl-4">            
+            <div class="card" style="width: 22rem;">
+                <img class="card-img-top" src="@Url.Content(Model.Photo)" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text text-center">@Model.FullName</p>
+                </div>
+            </div>
+        </div>
+        <div class="col col-xl-8">
+            <div>
+                @Html.DisplayNameFor(model => model.UserName) - <a href="mailto:@Model.UserName">@Model.UserName</a>
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Address) - @Model.Address
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Company.Name) - @Model.Company.Name
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Phone) - @Model.Phone
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.Department.Name) - @Model.Department.Name
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.City.Name) - @Model.City.Name
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btn btn-outline-secondary btn-sm" }) |
-    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
-</p>
+<div class="container">
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "badge badge-secondary" }) |
+        @Html.ActionLink("Back to List", "Index", new { }, new { @class = "badge badge-secondary" })
+    </p>
+</div>
+
+@*<h2>Details</h2>
+
+    <div>
+        <h4>User</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.City.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.City.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Company.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Company.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Department.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Department.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Photo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Photo)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btn btn-outline-secondary btn-sm" }) |
+        @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
+    </p>*@

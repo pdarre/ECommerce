@@ -53,8 +53,8 @@
         [Display(Name = "Company")]
         public int CompanyId { get; set; }
 
-        [Display(Name = "Users")]
-        public string FullName { get { return string.Format("{0}{1}", FirstName, LastName); } }
+        [Display(Name = "User")]
+        public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
 
         [NotMapped]
         public HttpPostedFileBase PhotoFile { get; set; }

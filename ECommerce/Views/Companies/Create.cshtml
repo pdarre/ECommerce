@@ -40,9 +40,9 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.LogoFile, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <span class="btn btn-default btn-file">
-                    @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file" })
+                    @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file", @class="border" })
                 </span>
             </div>
         </div>
