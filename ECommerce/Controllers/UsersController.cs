@@ -109,23 +109,47 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (user.PhotoFile != null)
+                if (ModelState.IsValid)
                 {
-                    var pic = string.Empty;
-                    var folder = "~/Content/FotoPersonal";
-                    var name = string.Format("{0}.jpg", user.UserId);
-                    var response = FilesHelper.UploadPhoto(user.PhotoFile, folder, name);
-                    if (response)
+                    if (user.PhotoFile != null)
                     {
-                        pic = string.Format("{0}/{1}", folder, name);
-                        user.Photo = pic;
+                        var pic = string.Empty;
+                        var folder = "~/Content/FotoPersonal";
+                        var name = string.Format("{0}.jpg", user.UserId);
+                        var response = FilesHelper.UploadPhoto(user.PhotoFile, folder, name);
+                        if (response)
+                        {
+                            pic = string.Format("{0}/{1}", folder, name);
+                            user.Photo = pic;
+                        }
                     }
+                    var db2 = new ECommerceContext();
+                    var oldUser = db2.Users.Find(user.UserId);
+                    if (oldUser.UserName!=user.UserName)
+                    {
+                        UsersHelper.UpdateUserName(oldUser.UserName, user.UserName);
+                    }
+                    db2.Dispose();
+
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                       ex.InnerException.InnerException != null &&
+                       ex.InnerException.InnerException.Message.Contains("_Index"))
+                {
+                    ModelState.AddModelError(String.Empty, "Duplicate records not allowed");
+                }
+                else
+                {
+                    ModelState.AddModelError(String.Empty, ex.Message);
+                }
             }
             return View(user);
         }
@@ -136,7 +160,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            var user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -148,9 +172,17 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+            try
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                UsersHelper.DeleteUser(user.UserName);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(String.Empty, ex.Message);
+            }
             return RedirectToAction("Index");
         }
 

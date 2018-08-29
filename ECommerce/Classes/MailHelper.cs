@@ -54,7 +54,7 @@
                     UserName = WebConfigurationManager.AppSettings["AdminUser"],
                     Password = WebConfigurationManager.AppSettings["AdminPassWord"]
                 };
-
+                
                 smtp.Credentials = credential;
                 smtp.Host = WebConfigurationManager.AppSettings["SMTPName"];
                 smtp.Port = int.Parse(WebConfigurationManager.AppSettings["SMTPPort"]);

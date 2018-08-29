@@ -17,6 +17,7 @@
 
         [Required(ErrorMessage = "The field {0} is required")]
         [Range(1, double.MaxValue, ErrorMessage = "You must select a {0}")]
+        [Display(Name = "Department")]
         [Index("City_Name_Index", 1, IsUnique = true)]
         public int DepartmentId { get; set; }
 

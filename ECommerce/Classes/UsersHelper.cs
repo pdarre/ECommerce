@@ -13,6 +13,32 @@
         private static ApplicationDbContext userContext = new ApplicationDbContext();
         private static ECommerceContext db = new ECommerceContext();
 
+        public static bool DeleteUser(string userName)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
+            var userAsp = userManager.FindByEmail(userName);
+            if (userAsp == null)
+            {
+                return false;
+            }
+            var response = userManager.Delete(userAsp);
+            return response.Succeeded;
+        }
+
+        public static bool UpdateUserName(string currentUserName, string newUserName)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
+            var userAsp = userManager.FindByEmail(currentUserName);
+            if (userAsp == null)
+            {
+                return false;
+            }
+            userAsp.UserName = newUserName;
+            userAsp.Email = newUserName;
+            var response = userManager.Update(userAsp);
+            return response.Succeeded;
+        }
+
         public static void CheckRole(string roleName)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
@@ -35,9 +61,9 @@
                 CreateUserASP(email, "Admin", password);
                 return;
             }
-
             userManager.AddToRole(userASP.Id, "Admin");
         }
+
         public static void CreateUserASP(string email, string roleName)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
@@ -106,5 +132,4 @@
             db.Dispose();
         }
     }
-
 }

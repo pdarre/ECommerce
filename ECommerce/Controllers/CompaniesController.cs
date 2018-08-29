@@ -37,7 +37,7 @@
         // GET: Companies/Create
         public ActionResult Create()
         {
-            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities().Where(c => c.CityId == 0), "CityId", "Name");
             ViewBag.DepartmentId = new SelectList(CombosHelper.GetDepartments(), "DepartmentId", "Name");
             return View();
         }
@@ -149,7 +149,11 @@
         {
             db.Configuration.ProxyCreationEnabled = false;
             var cities = db.Cities.Where(c => c.DepartmentId == departmentId);
-            return Json(cities);
+            if (cities.Count() > 0)
+            {
+                return Json(cities);
+            }
+            return Json(null);
         }
 
         protected override void Dispose(bool disposing)

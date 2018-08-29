@@ -11,7 +11,7 @@
 
         [Required(ErrorMessage = "The field {0} is required")]
         [MaxLength(256, ErrorMessage = "The field {0} must be maximun {1} characters length")]
-        [Display(Name = "Email")]
+        [Display(Name = "Email address")]
         [Index("User_Name_Index", IsUnique = true)]
         [DataType(DataType.EmailAddress)]
         public string UserName { get; set; }

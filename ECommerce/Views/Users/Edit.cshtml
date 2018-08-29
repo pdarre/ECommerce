@@ -5,43 +5,99 @@
 }
 
 <h2>Edit</h2>
-
-
+<h4>User</h4>
+<hr />
 @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
+    <div class="form-row">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputAddress">@Html.LabelFor(model => model.UserName)</label>
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @id = "inputAddress", placeholder = "user@mail.com" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="txtFirstName">First name</label>
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "txtFirstName", placeholder = "Jhon" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            <label for="txtLastName">Last name</label>
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @id = "txtLastName", placeholder = "Doe" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="txtAddress">Address</label>
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "txtAddress", @placeholder = "1234 Main St" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="txtPhone">Phone</label>
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", id = "txtPhone", placeholder = "503 243756540" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-6">
+            <label for="filePhoto">Photo</label>
+            @Html.TextBoxFor(modelo => modelo.PhotoFile, new { type = "file", id = "filePhoto", @class = "form-control-file border btn btn-choose" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="dropDepartment">Department</label>
+            @Html.DropDownList("DepartmentId", null, htmlAttributes: new { @class = "form-control", @id = "dropDepartment" })
+            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dropCity">City</label>
+            @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control", @id = "dropCity" })
+            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dropCompany">Company</label>
+            @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control", @id = "dropCompany" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="alert alert-danger collapse" id="alertCity" role="alert">
+        No cities to show, select other department.
+    </div>
+    <div class="alert alert-danger collapse" id="alertCompanies" role="alert">
+        No companies to show, select other city/department.
+    </div>
+    @*<div class="form-row">
+            <div class="form-group col-12">
+                <label for="inputAddress">@Html.LabelFor(model => model.UserName)</label>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @id = "inputAddress" } })
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+    @*<div class="form-row">
+            <div class="form-group col-6">
+                <label for="inputAddress" class="control-label col-md-2">@Html.LabelFor(model => model.FirstName)</label>
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "inputAddress" } })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="form-group col-6">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
@@ -73,7 +129,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DepartmentId, "DepartmentId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DepartmentId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("DepartmentId", null, htmlAttributes: new { @class = "form-control", @id = "dropDepartment" })
                 @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,7 +137,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CityId, "CityId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control", @id = "dropCity" })
                 @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -89,20 +145,82 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CompanyId, "CompanyId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control", @id = "dropCompany" })
                 @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-outline-secondary btn-sm" />
-                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
-            </div>
+        <div class="alert alert-danger collapse" id="alertCity" role="alert">
+            No cities to show, select other department.
+        </div>
+        <div class="alert alert-danger collapse" id="alertCompanies" role="alert">
+            No companies to show, select other city/department.
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-outline-secondary btn-sm" /> |
+            @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
         </div>
     </div>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#dropDepartment").change(function () {
+            $("#dropCity").empty();
+            $('#alertCity').hide();
+            $('#alertCompanies').hide();
+            $("#dropCity").append('<option value="0">[Select a city...]</option>');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCities")',
+                dataType: 'json',
+                data: { departmentId: $("#dropDepartment").val() },
+                success: function (data) {
+                    $.each(data, function (i, data) {
+                        $("#dropCity").append('<option value="'
+                            + data.CityId + '">'
+                            + data.Name + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    $('#alertCity').show();
+                    //alert('Failed to retrieve cities.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#dropCity").change(function () {
+                $("#dropCompany").empty();
+                $('#alertCompanies').hide();
+                $('#alertCity').hide();
+                $("#dropCompany").append('<option value="0">[Select a company...]</option>');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCompanies")',
+                    dataType: 'json',
+                    data: { cityId: $("#dropCity").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#dropCompany").append('<option value="'
+                                + data.CompanyId + '">'
+                                + data.Name + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        $('#alertCompanies').show();
+                        //alert('No companies to show.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
 }
