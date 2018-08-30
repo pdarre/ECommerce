@@ -6,13 +6,19 @@
     using System.Net;
     using System.Web.Mvc;
 
+    [Authorize(Roles = "User")]
     public class CategoriesController : Controller
     {
         private ECommerceContext db = new ECommerceContext();
 
         public ActionResult Index()
         {
-            var categories = db.Categories.Include(c => c.Company);
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var categories = db.Categories.Where(c => c.CompanyId == user.CompanyId);
             return View(categories.ToList());
         }
 
@@ -32,8 +38,13 @@
 
         public ActionResult Create()
         {
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name");
-            return View();
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var category = new Category { CompanyId = user.CompanyId, };
+            return View(category);
         }
 
         [HttpPost]

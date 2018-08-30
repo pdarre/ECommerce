@@ -9,6 +9,7 @@
     using System.Net;
     using System.Web.Mvc;
 
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         private ECommerceContext db = new ECommerceContext();

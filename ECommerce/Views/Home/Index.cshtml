@@ -1,10 +1,14 @@
-﻿@{
+﻿@model ECommerce.Models.User
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h1>E-Commerce</h1>
-    <p class="lead">Ecommerce application development</p>
+    @if (Model != null && !String.IsNullOrEmpty(Model.Company.Logo))
+    {
+        <img src="@Url.Content(Model.Company.Logo)" class="rounded" alt="Image"  />
+    }
 </div>
 
 <div class="row">

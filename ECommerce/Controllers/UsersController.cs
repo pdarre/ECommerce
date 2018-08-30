@@ -9,10 +9,11 @@
     using System.Net;
     using System.Web.Mvc;
 
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private ECommerceContext db = new ECommerceContext();
-
+        
         public ActionResult Index()
         {
             var users = db.Users.Include(u => u.City).Include(u => u.Company).Include(u => u.Department);

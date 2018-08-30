@@ -8,6 +8,7 @@
     using System.Net;
     using System.Web.Mvc;
 
+    [Authorize(Roles = "Admin")]
     public class CompaniesController : Controller
     {
         private ECommerceContext db = new ECommerceContext();

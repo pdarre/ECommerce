@@ -9,15 +9,14 @@
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
-        [MaxLength(50, ErrorMessage = "The field {0} must be maximun {1} characters length")]
+        [MaxLength(50, ErrorMessage = "The field {0} must be maximun {1} characters length")]        
+        [Index("Category_Description_Index", 2, IsUnique = true)]
         [Display(Name = "Category")]
-        [Index("Category_CompanyId_Description_Index", 2, IsUnique = true)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
-        [Range(1, double.MaxValue, ErrorMessage = "You must select a {0}")]
+        [Range(1, double.MaxValue, ErrorMessage = "You must select a {0}")]  
         [Display(Name = "Company")]
-        [Index("Category_CompanyId_Name_Index", 1, IsUnique = true)]
         public int CompanyId { get; set; }
 
         public virtual Company Company { get; set; }
