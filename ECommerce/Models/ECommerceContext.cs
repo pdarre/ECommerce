@@ -24,5 +24,7 @@
         public System.Data.Entity.DbSet<ECommerce.Models.User> Users { get; set; }
 
         public System.Data.Entity.DbSet<ECommerce.Models.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<ECommerce.Models.Tax> Taxes { get; set; }
     }
 }

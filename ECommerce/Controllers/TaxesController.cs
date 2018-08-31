@@ -8,7 +8,7 @@
     using System.Web.Mvc;
 
     [Authorize(Roles = "User")]
-    public class CategoriesController : Controller
+    public class TaxesController : Controller
     {
         private ECommerceContext db = new ECommerceContext();
 
@@ -19,8 +19,9 @@
             {
                 return RedirectToAction("Index", "Home");
             }
-            var categories = db.Categories.Where(c => c.CompanyId == user.CompanyId);
-            return View(categories.ToList());
+            var taxes = db.Taxes.Where(t => t.CompanyId == user.CompanyId);
+            return View(taxes);
+            //return View(db.Taxes.ToList());
         }
 
         public ActionResult Details(int? id)
@@ -29,12 +30,12 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Tax tax = db.Taxes.Find(id);
+            if (tax == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(tax);
         }
 
         public ActionResult Create()
@@ -44,19 +45,19 @@
             {
                 return RedirectToAction("Index", "Home");
             }
-            var category = new Category { CompanyId = user.CompanyId, };
-            return View(category);
+            var tax = new Tax { CompanyId = user.CompanyId, };
+            return View(tax);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category)
+        public ActionResult Create(Tax tax)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Categories.Add(category);
+                    db.Taxes.Add(tax);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -74,7 +75,7 @@
                     ModelState.AddModelError(String.Empty, ex.Message);
                 }
             }
-            return View(category);
+            return View(tax);
         }
 
         public ActionResult Edit(int? id)
@@ -83,23 +84,23 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Tax tax = db.Taxes.Find(id);
+            if (tax == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(tax);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit(Tax tax)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(category).State = EntityState.Modified;
+                    db.Entry(tax).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -117,7 +118,7 @@
                     ModelState.AddModelError(String.Empty, ex.Message);
                 }
             }
-            return View(category);
+            return View(tax);
         }
 
         public ActionResult Delete(int? id)
@@ -126,12 +127,12 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+            Tax tax = db.Taxes.Find(id);
+            if (tax == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(tax);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -140,15 +141,16 @@
         {
             try
             {
-                var category = db.Categories.Find(id);
-                db.Categories.Remove(category);
+                Tax tax = db.Taxes.Find(id);
+                db.Taxes.Remove(tax);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(String.Empty, ex.Message);
             }
-            return RedirectToAction("Index");
+            return View();
         }
 
         protected override void Dispose(bool disposing)

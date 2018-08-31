@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ECommerce.Models.Tax>
+
+@{
+    ViewBag.Title = "Taxes";
+}
+
+<h2>Taxes</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <a class="btn btn-secondary" href="~/Taxes/Edit/@item.TaxId" role="button">Edit</a>
+                    <a class="btn btn-secondary" href="~/Taxes/Details/@item.TaxId" role="button">Details</a>
+                    <a class="btn btn-secondary" href="~/Taxes/Delete/@item.TaxId" role="button">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
