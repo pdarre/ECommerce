@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ECommerce.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>Products</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-outline-secondary btn-sm" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tax.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BarCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tax.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BarCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Image))
+            {
+                <img src="@Url.Content(item.Image)" alt="Image" style="width:75px;height:100px;max-width: 100%; height: auto;" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <a class="btn btn-secondary" href="~/Products/Edit/@item.ProductId" role="button">Edit</a>
+                <a class="btn btn-secondary" href="~/Products/Details/@item.ProductId" role="button">Details</a>
+                <a class="btn btn-secondary" href="~/Products/Delete/@item.ProductId" role="button">Delete</a>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>
